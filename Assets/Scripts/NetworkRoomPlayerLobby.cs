@@ -53,7 +53,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public override void OnNetworkDestroy()
     {
         Room.RoomPlayers.Remove(this);
-
+        
         UpdateDisplay();
     }
 
@@ -115,5 +115,18 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
         if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
 
         Room.StartGame();
+    }
+
+    [Command]
+    public void CmdLeaveLobby()
+    {
+        if (isLeader) { Room.StopHost(); }
+        else { 
+            connectionToServer.Disconnect();
+            OnNetworkDestroy();
+        }
+
+        var landingPage = GameObject.Find("UI_LobbyMenu").GetComponent<LobbyMenu>().landingPagePanel;
+        landingPage.SetActive(true);
     }
 }
