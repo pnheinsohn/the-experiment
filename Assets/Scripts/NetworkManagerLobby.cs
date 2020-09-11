@@ -44,6 +44,7 @@ public class NetworkManagerLobby : NetworkManager
     public override void OnClientDisconnect(NetworkConnection conn)
     {
         base.OnClientDisconnect(conn);
+        Debug.Log(RoomPlayers);
 
         OnClientDisconnected?.Invoke();
     }

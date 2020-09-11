@@ -121,9 +121,9 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public void CmdLeaveLobby()
     {
         if (isLeader) { Room.StopHost(); }
-        else { 
-            connectionToServer.Disconnect();
-            OnNetworkDestroy();
+        else {
+            Room.StopClient();
+            Room.RoomPlayers.Clear();
         }
 
         var landingPage = GameObject.Find("UI_LobbyMenu").GetComponent<LobbyMenu>().landingPagePanel;
