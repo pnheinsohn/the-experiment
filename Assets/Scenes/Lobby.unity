@@ -427,7 +427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.999982, y: 76.00001}
+  m_AnchoredPosition: {x: -1.9999847, y: 76.00001}
   m_SizeDelta: {x: 420, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &137985340
@@ -683,7 +683,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.40100002}
   m_AnchorMax: {x: 0.5, y: 0.40100002}
-  m_AnchoredPosition: {x: -0.000078233, y: 5.7519}
+  m_AnchoredPosition: {x: -0.000078233, y: 5.7519073}
   m_SizeDelta: {x: 526.73083, y: 398.8963}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &254290426
@@ -3344,7 +3344,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.40100002}
   m_AnchorMax: {x: 0.5, y: 0.40100002}
-  m_AnchoredPosition: {x: -0.000078233, y: 5.7519}
+  m_AnchoredPosition: {x: -0.000078233, y: 5.7519073}
   m_SizeDelta: {x: 526.73083, y: 398.8963}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1775014340
@@ -3398,7 +3398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.40100002}
   m_AnchorMax: {x: 0.5, y: 0.40100002}
-  m_AnchoredPosition: {x: -0.000078233, y: 5.7519}
+  m_AnchoredPosition: {x: -0.000078233, y: 5.7519073}
   m_SizeDelta: {x: 526.73083, y: 398.8963}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1781692066
@@ -3870,6 +3870,8 @@ MonoBehaviour:
   roomPlayerPrefab: {fileID: 4910428294619782812, guid: c2a06bd12fa647343bf2e3db1ffe3a34,
     type: 3}
   gamePlayerPrefab: {fileID: 7505580431393926816, guid: 5f751f28579dafe41a9d38ce50cdfad7,
+    type: 3}
+  playerSpawnSystem: {fileID: 4351161269378694083, guid: e7fe7eff0cda4ef4e91eb28f39645ae6,
     type: 3}
 --- !u!4 &2087835237
 Transform:
