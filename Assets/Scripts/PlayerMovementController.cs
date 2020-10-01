@@ -46,8 +46,6 @@ public class PlayerMovementController : NetworkBehaviour
     [ClientCallback]
     private void OnDisable() => Controls.Disable();
 
-    /*private void Update() => Move();*/
-
     [Client]
     private void SetMovement(Vector2 movement) {
         if (moved) { return; }
@@ -69,24 +67,5 @@ public class PlayerMovementController : NetworkBehaviour
 
     [Client]
     private void ResetMovement() => moved = false;
-
-/*    void Move()
-    {
-        if (moved) { return; }
-
-        Vector3 playerPos = transform.position;
-        Vector3 newPlayerPos = new Vector3(playerPos.x + 0.25f * previousInput.x, playerPos.y + 0.25f * previousInput.y, 0);
-
-        if (Vector3.Distance(prevPosition, newPlayerPos) > 1) { return; }
-
-        foreach (GameObject player in Players)
-        {
-            if (gameObject == player) { continue; }
-            if (Vector3.Distance(player.transform.position, newPlayerPos) == 0) { return; }
-        }
-
-        transform.position = newPlayerPos;
-        moved = true;
-    }*/
 }
 
