@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4351161269378694081}
   - component: {fileID: 4351161269378694082}
   m_Layer: 0
-  m_Name: SpawnSystem
+  m_Name: PlayerSpawnSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,5 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  playerPrefab: {fileID: 1872395802791532259, guid: 60b5d390bacf2fd46ad24c62bac71287,
+  scientistSprite: {fileID: 5479092304599688386, guid: dfabf7fdba8e7bd48b50d46b1768191d,
+    type: 3}
+  playerPrefab: {fileID: 1872395802791532259, guid: f032d561fca43e34e996eeb812ff4291,
     type: 3}

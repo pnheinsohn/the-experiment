@@ -21,6 +21,16 @@ public class PlayerMovementController : NetworkBehaviour
         }
     }
 
+    private GameObject[] players;
+    private GameObject[] Players
+    {
+        get
+        {
+            if (players != null) { return players; }
+            return players = GameObject.FindGameObjectsWithTag("Player");
+        }
+    }
+
     public override void OnStartAuthority()
     {
         moved = true;
@@ -52,6 +62,12 @@ public class PlayerMovementController : NetworkBehaviour
         Vector3 newPlayerPos = new Vector3(playerPos.x + 0.25f * previousInput.x, playerPos.y + 0.25f * previousInput.y, 0);
 
         if (Vector3.Distance(prevPosition, newPlayerPos) > 1) { return; }
+
+        foreach (GameObject player in Players)
+        {
+            if (gameObject == player) { continue; }
+            if (Vector3.Distance(player.transform.position, newPlayerPos) == 0) { return; }
+        }
 
         transform.position = newPlayerPos;
         moved = true;

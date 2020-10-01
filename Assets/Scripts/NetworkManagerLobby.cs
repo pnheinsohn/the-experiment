@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManagerLobby : NetworkManager
 {
-    [SerializeField] private int minPlayers = 2;
+    [SerializeField] public int minPlayers = 4;
+    [SerializeField] private int numScientists = 2;
     [Scene] [SerializeField] private string lobbyScene = string.Empty;
 
     [Header("Room")]
@@ -46,7 +47,6 @@ public class NetworkManagerLobby : NetworkManager
     public override void OnClientDisconnect(NetworkConnection conn)
     {
         base.OnClientDisconnect(conn);
-        Debug.Log(RoomPlayers);
 
         OnClientDisconnected?.Invoke();
     }
@@ -130,11 +130,18 @@ public class NetworkManagerLobby : NetworkManager
     {
         if (SceneManager.GetActiveScene().path == lobbyScene && newSceneName.StartsWith("Scene"))
         {
+            System.Random rnd = new System.Random();
+            var players = RoomPlayers.OrderBy(x => rnd.Next()).Take(numScientists);
+            foreach (var player in players)
+            {
+                player.IsScientist = true;
+            }
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
                 var conn = RoomPlayers[i].connectionToClient;
                 var gamePlayerInstance = Instantiate(gamePlayerPrefab);
                 gamePlayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
+                gamePlayerInstance.SetIsScientist(RoomPlayers[i].IsScientist);
 
                 // NetworkServer.Destroy(conn.identity.gameObject);
 
