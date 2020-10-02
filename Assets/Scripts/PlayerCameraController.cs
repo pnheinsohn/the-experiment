@@ -15,6 +15,6 @@ public class PlayerCameraController : NetworkBehaviour
         virtualCamera.gameObject.SetActive(true);
         enabled = true;
 
-        virtualCamera.m_Lens.OrthographicSize = 1.2f;
+        virtualCamera.m_Lens.OrthographicSize = 150f;
     }
 }

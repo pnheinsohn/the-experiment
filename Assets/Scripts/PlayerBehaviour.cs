@@ -5,6 +5,8 @@ public class PlayerBehaviour : NetworkBehaviour
 {
     [SyncVar]
     public bool IsScientist;
+    [SyncVar]
+    public string DisplayName;
 
     private NetworkManagerLobby room;
     private NetworkManagerLobby Room
