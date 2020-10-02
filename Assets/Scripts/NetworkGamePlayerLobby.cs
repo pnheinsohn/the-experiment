@@ -7,7 +7,7 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
 {
 
     [SyncVar]
-    private string displayName = "Loading...";
+    public string DisplayName = "Loading...";
     [SyncVar]
     public bool IsScientist;
 
@@ -35,7 +35,7 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
     [Server]
     public void SetDisplayName(string displayName)
     {
-        this.displayName = displayName;
+        this.DisplayName = displayName;
     }
 
     public void SetIsScientist(bool isScientist)
