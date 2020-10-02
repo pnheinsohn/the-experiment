@@ -7,9 +7,13 @@ using UnityEngine.UI;
 
 public class PlayerMovementController : NetworkBehaviour
 {
+    [SerializeField] private GameObject playerVisuals= null;
+
     private bool moved;
+    private float scale;
     private Vector3 prevPosition;
-    private Vector2 previousInput;
+
+    private readonly int moveUnits = 3;
 
     private Controls controls;
     private Controls Controls
@@ -35,6 +39,7 @@ public class PlayerMovementController : NetworkBehaviour
     {
         moved = true;
         enabled = true;
+        scale = playerVisuals.GetComponent<Transform>().localScale.x / 4;
         prevPosition = gameObject.GetComponent<Transform>().position;
         Controls.Player.Move.performed += ctx => SetMovement(ctx.ReadValue<Vector2>());
         Controls.Player.Move.canceled += ctx => ResetMovement();
@@ -54,7 +59,9 @@ public class PlayerMovementController : NetworkBehaviour
         Vector3 playerPos = transform.position;
         Vector3 newPlayerPos = new Vector3(playerPos.x + 50 * movement.x, playerPos.y + 50 * movement.y, 0);
 
-        if (Vector3.Distance(prevPosition, newPlayerPos) > 1) { return; }
+        float moveDistance = moveUnits * scale;
+        if (Math.Abs(prevPosition.x - newPlayerPos.x) > moveDistance) { return; }
+        if (Math.Abs(prevPosition.y - newPlayerPos.y) > moveDistance) { return; }
 
         foreach (GameObject player in Players)
         {

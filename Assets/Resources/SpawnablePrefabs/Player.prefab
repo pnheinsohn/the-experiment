@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  playerVisuals: {fileID: 2002036071813122720}
 --- !u!114 &-6099031885556377325
 MonoBehaviour:
   m_ObjectHideFlags: 0
