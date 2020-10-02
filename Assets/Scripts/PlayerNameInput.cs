@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class PlayerNameInput : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] private InputField nameInputField;
-    [SerializeField] private Button continueButton;
+    [SerializeField] private InputField nameInputField = null;
+    [SerializeField] private Button continueButton = null;
 
     public static string DisplayName { get; private set; }
 
