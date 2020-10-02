@@ -8,6 +8,8 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
 
     [SyncVar]
     private string displayName = "Loading...";
+    [SyncVar]
+    public bool IsScientist;
 
     private NetworkManagerLobby room;
     private NetworkManagerLobby Room
@@ -34,5 +36,10 @@ public class NetworkGamePlayerLobby : NetworkBehaviour
     public void SetDisplayName(string displayName)
     {
         this.displayName = displayName;
+    }
+
+    public void SetIsScientist(bool isScientist)
+    {
+        this.IsScientist = isScientist;
     }
 }

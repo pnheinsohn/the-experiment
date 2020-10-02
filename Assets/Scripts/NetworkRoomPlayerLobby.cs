@@ -15,6 +15,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     public string DisplayName = "Loading...";
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool IsReady = false;
+    [SyncVar]
+    public bool IsScientist = false;
 
     private bool isLeader;
     public bool IsLeader
