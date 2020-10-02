@@ -52,7 +52,7 @@ public class PlayerMovementController : NetworkBehaviour
         moved = true;
 
         Vector3 playerPos = transform.position;
-        Vector3 newPlayerPos = new Vector3(playerPos.x + 0.25f * movement.x, playerPos.y + 0.25f * movement.y, 0);
+        Vector3 newPlayerPos = new Vector3(playerPos.x + 50 * movement.x, playerPos.y + 50 * movement.y, 0);
 
         if (Vector3.Distance(prevPosition, newPlayerPos) > 1) { return; }
 

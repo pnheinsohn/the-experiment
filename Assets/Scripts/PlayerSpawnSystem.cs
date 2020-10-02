@@ -1,6 +1,7 @@
 ﻿using Mirror;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class PlayerSpawnSystem : NetworkBehaviour
@@ -49,6 +50,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
         GameObject playerInstance = Instantiate(playerPrefab, spawnPoints[nextIndex].position, spawnPoints[nextIndex].rotation);
         PlayerBehaviour playerBehaviour = playerInstance.GetComponent<PlayerBehaviour>();
         playerBehaviour.IsScientist = conn.identity.gameObject.GetComponent<NetworkGamePlayerLobby>().IsScientist;
+        playerBehaviour.DisplayName = conn.identity.gameObject.GetComponent<NetworkGamePlayerLobby>().DisplayName;
         NetworkServer.Spawn(playerInstance, conn);
 
         nextIndex++;
@@ -78,6 +80,8 @@ public class PlayerSpawnSystem : NetworkBehaviour
                     }
                 }
             }
+            TMP_Text playerName = player.GetComponentInChildren<TMP_Text>();
+            playerName.text = playerBehaviour.DisplayName;
         }
     }
 }
