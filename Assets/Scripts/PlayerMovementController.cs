@@ -7,11 +7,12 @@ using UnityEngine.UI;
 
 public class PlayerMovementController : NetworkBehaviour
 {
-    [SerializeField] private GameObject playerVisuals= null;
+    [SerializeField] private GameObject playerVisuals = null;
 
     private bool moved;
     private float scale;
     private Vector3 prevPosition;
+    private Vector3 lastPosition;
 
     private readonly int moveUnits = 3;
 
@@ -41,6 +42,7 @@ public class PlayerMovementController : NetworkBehaviour
         enabled = true;
         scale = playerVisuals.GetComponent<Transform>().localScale.x / 4;
         prevPosition = gameObject.GetComponent<Transform>().position;
+        lastPosition = prevPosition;
         Controls.Player.Move.performed += ctx => SetMovement(ctx.ReadValue<Vector2>());
         Controls.Player.Move.canceled += ctx => ResetMovement();
     }
@@ -52,27 +54,32 @@ public class PlayerMovementController : NetworkBehaviour
     private void OnDisable() => Controls.Disable();
 
     [Client]
-    private void SetMovement(Vector2 movement) {
+    private void SetMovement(Vector2 movement)
+    {
         if (moved) { return; }
         moved = true;
 
         Vector3 playerPos = transform.position;
-        Vector3 newPlayerPos = new Vector3(playerPos.x + 50 * movement.x, playerPos.y + 50 * movement.y, 0);
+        Vector2 newPlayerPos = new Vector3(playerPos.x + scale * movement.x, playerPos.y + scale * movement.y);
 
         float moveDistance = moveUnits * scale;
         if (Math.Abs(prevPosition.x - newPlayerPos.x) > moveDistance) { return; }
         if (Math.Abs(prevPosition.y - newPlayerPos.y) > moveDistance) { return; }
 
-        foreach (GameObject player in Players)
-        {
-            if (gameObject == player) { continue; }
-            if (Vector3.Distance(player.transform.position, newPlayerPos) == 0) { return; }
-        }
+        Vector2 boxSize = new Vector2(scale / 2, scale / 2);
+        RaycastHit2D[] colliders = Physics2D.BoxCastAll(newPlayerPos, boxSize, 0f, transform.forward);
+        if (colliders.Length != 0) { return; }
 
+        lastPosition = transform.position;
         transform.position = newPlayerPos;
     }
 
     [Client]
     private void ResetMovement() => moved = false;
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        transform.position = lastPosition;
+    }
 }
 

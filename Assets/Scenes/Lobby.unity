@@ -4058,7 +4058,7 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
-  minPlayers: 4
+  minPlayers: 1
   numScientists: 2
   lobbyScene: Assets/Scenes/Lobby.unity
   roomPlayerPrefab: {fileID: 4910428294619782812, guid: c2a06bd12fa647343bf2e3db1ffe3a34,
