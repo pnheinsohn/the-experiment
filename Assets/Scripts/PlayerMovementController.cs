@@ -60,13 +60,14 @@ public class PlayerMovementController : NetworkBehaviour
         moved = true;
 
         Vector3 playerPos = transform.position;
-        Vector3 newPlayerPos = new Vector3(playerPos.x + 50 * movement.x, playerPos.y + 50 * movement.y, 0);
+        Vector3 newPlayerPos = new Vector3(playerPos.x + scale * movement.x, playerPos.y + scale * movement.y, 0);
 
         float moveDistance = moveUnits * scale;
         if (Math.Abs(prevPosition.x - newPlayerPos.x) > moveDistance) { return; }
         if (Math.Abs(prevPosition.y - newPlayerPos.y) > moveDistance) { return; }
 
-        if (Physics.CheckBox(newPlayerPos, new Vector3(25, 25, 0))) { return; }
+        bool checkBox = Physics2D.BoxCast(new Vector2(newPlayerPos.x, newPlayerPos.y), new Vector2(scale / 2, scale / 2), 0f, new Vector2(transform.forward.x, transform.forward.y));
+        if (checkBox) { return; }
 
         foreach (GameObject player in Players)
         {
