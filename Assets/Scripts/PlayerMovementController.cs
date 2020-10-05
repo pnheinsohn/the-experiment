@@ -7,13 +7,14 @@ using UnityEngine.UI;
 
 public class PlayerMovementController : NetworkBehaviour
 {
-    [SerializeField] private GameObject playerVisuals= null;
+    [SerializeField] private GameObject playerVisuals = null;
 
     private bool moved;
     private float scale;
     private Vector3 prevPosition;
+    private Vector3 lastPosition;
 
-    private readonly int moveUnits = 3;
+    private readonly int moveUnits = 100;
 
     private Controls controls;
     private Controls Controls
@@ -41,6 +42,7 @@ public class PlayerMovementController : NetworkBehaviour
         enabled = true;
         scale = playerVisuals.GetComponent<Transform>().localScale.x / 4;
         prevPosition = gameObject.GetComponent<Transform>().position;
+        lastPosition = prevPosition;
         Controls.Player.Move.performed += ctx => SetMovement(ctx.ReadValue<Vector2>());
         Controls.Player.Move.canceled += ctx => ResetMovement();
     }
@@ -52,7 +54,8 @@ public class PlayerMovementController : NetworkBehaviour
     private void OnDisable() => Controls.Disable();
 
     [Client]
-    private void SetMovement(Vector2 movement) {
+    private void SetMovement(Vector2 movement)
+    {
         if (moved) { return; }
         moved = true;
 
@@ -63,16 +66,23 @@ public class PlayerMovementController : NetworkBehaviour
         if (Math.Abs(prevPosition.x - newPlayerPos.x) > moveDistance) { return; }
         if (Math.Abs(prevPosition.y - newPlayerPos.y) > moveDistance) { return; }
 
+        if (Physics.CheckBox(newPlayerPos, new Vector3(25, 25, 0))) { return; }
+
         foreach (GameObject player in Players)
         {
             if (gameObject == player) { continue; }
             if (Vector3.Distance(player.transform.position, newPlayerPos) == 0) { return; }
         }
-
+        lastPosition = transform.position;
         transform.position = newPlayerPos;
     }
 
     [Client]
     private void ResetMovement() => moved = false;
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        transform.position = lastPosition;
+    }
 }
 
