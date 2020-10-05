@@ -14,7 +14,7 @@ public class PlayerMovementController : NetworkBehaviour
     private Vector3 prevPosition;
     private Vector3 lastPosition;
 
-    private readonly int moveUnits = 100;
+    private readonly int moveUnits = 3;
 
     private Controls controls;
     private Controls Controls
@@ -60,20 +60,16 @@ public class PlayerMovementController : NetworkBehaviour
         moved = true;
 
         Vector3 playerPos = transform.position;
-        Vector3 newPlayerPos = new Vector3(playerPos.x + scale * movement.x, playerPos.y + scale * movement.y, 0);
+        Vector2 newPlayerPos = new Vector3(playerPos.x + scale * movement.x, playerPos.y + scale * movement.y);
 
         float moveDistance = moveUnits * scale;
         if (Math.Abs(prevPosition.x - newPlayerPos.x) > moveDistance) { return; }
         if (Math.Abs(prevPosition.y - newPlayerPos.y) > moveDistance) { return; }
 
-        bool checkBox = Physics2D.BoxCast(new Vector2(newPlayerPos.x, newPlayerPos.y), new Vector2(scale / 2, scale / 2), 0f, new Vector2(transform.forward.x, transform.forward.y));
-        if (checkBox) { return; }
+        Vector2 boxSize = new Vector2(scale / 2, scale / 2);
+        RaycastHit2D[] colliders = Physics2D.BoxCastAll(newPlayerPos, boxSize, 0f, transform.forward);
+        if (colliders.Length != 0) { return; }
 
-        foreach (GameObject player in Players)
-        {
-            if (gameObject == player) { continue; }
-            if (Vector3.Distance(player.transform.position, newPlayerPos) == 0) { return; }
-        }
         lastPosition = transform.position;
         transform.position = newPlayerPos;
     }
